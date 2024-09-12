@@ -3,33 +3,37 @@
     <form @submit.prevent="saveMedicamento">
       <div>
         <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" v-model="newMedicamento.nombre" />
+        <input type="text" id="nombre" v-model="newMedicamento.nombre" required />
       </div>
       <div>
         <label for="precio">Precio:</label>
-        <input type="number" id="precio" v-model="newMedicamento.precio" />
+        <input type="number" id="precio" v-model="newMedicamento.precio" required />
       </div>
       <div>
         <label for="descripcion">Descripción:</label>
-        <input type="text" id="descripcion" v-model="newMedicamento.descripcion" />
+        <input type="text" id="descripcion" v-model="newMedicamento.descripcion" required />
       </div>
       <div>
         <label for="stock">Stock:</label>
-        <input type="number" id="stock" v-model="newMedicamento.stock" />
+        <input type="number" id="stock" v-model="newMedicamento.stock" required />
       </div>
       <div>
-  <label for="marcaId">Marca:</label>
-  <select id="marcaId" v-model="newMedicamento.marca" :disabled="isMarcaDisabled">
-          <option v-for="marca in marcas" :key="marca.id" :value="marca">{{ marca.nombre }}</option>
+        <label for="marca">Marca:</label>
+        <select id="marca" v-model="selectedMarca">
+          <option v-for="marca in marcas" :key="marca.id" :value="marca">
+            {{ marca.nombre }}
+          </option>
         </select>
-</div>
+      </div>
       <div>
         <label for="fechaVencimiento">Fecha de Vencimiento:</label>
-        <input type="date" id="fechaVencimiento" v-model="newMedicamento.fechaVencimiento" />
+        <input type="date" id="fechaVencimiento" v-model="newMedicamento.fechaVencimiento" required />
       </div>
       <div>
-        <label for="necesitaReceta">Necesita Receta: <input type="checkbox" id="necesitaReceta" v-model="newMedicamento.necesitaReceta" />
-        </label></div>
+        <label for="necesitaReceta">Necesita Receta: 
+          <input type="checkbox" id="necesitaReceta" v-model="newMedicamento.necesitaReceta" />
+        </label>
+      </div>
       <button type="submit">Añadir Medicamento</button>
       <button type="button" @click="goToMedicamentos">Volver</button>
     </form>
@@ -43,6 +47,8 @@ import { useRouter, useRoute } from 'vue-router';
 import { useToast } from 'vue-toast-notification';
 
 const toast = useToast();
+const router = useRouter();
+const route = useRoute();
 
 const newMedicamento = ref({
   id: null,
@@ -50,20 +56,25 @@ const newMedicamento = ref({
   precio: 0,
   descripcion: "",
   stock: 0,
-  marcaId: null,
+  marca: null,
   fechaVencimiento: "",
   necesitaReceta: false,
 });
 
 const marcas = ref([]);
-const router = useRouter();
-const route = useRoute();
-const isMarcaDisabled = ref(false);
+const selectedMarca = ref(null);
 
 const fetchMarcas = async () => {
   try {
     const response = await axios.get("/api/farmacia/marcas");
     marcas.value = response.data;
+    
+    const marcaString = route.query.marca;
+    if (marcaString) {
+      const marcaObj = JSON.parse(marcaString);
+      selectedMarca.value = marcaObj; // Selecciona la marca adecuada
+      newMedicamento.value.marca = marcaObj; // Asigna el objeto de marca completo
+    }
   } catch (error) {
     console.error("Error fetching marcas:", error);
   }
@@ -77,7 +88,6 @@ const fetchMedicamento = async (id) => {
     console.error("Error fetching medicamento:", error);
   }
 };
-
 
 const saveMedicamento = async () => {
   try {
@@ -96,11 +106,7 @@ const goToMedicamentos = () => {
 
 onMounted(() => {
   fetchMarcas();
-  const marcaId = route.query.marcaId;
-  if (marcaId) {
-    newMedicamento.value.marcaId = marcaId;
-    isMarcaDisabled.value = true;
-  }
+
   const id = route.params.id;
   if (id) {
     fetchMedicamento(id);

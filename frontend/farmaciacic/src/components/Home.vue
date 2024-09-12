@@ -26,14 +26,8 @@
 </template>
 
 <script>
-import { ref } from "vue";
-
 export default {
   name: "Home",
-  setup() {
-    // Aquí puedes agregar cualquier lógica adicional si lo necesitas.
-    return {};
-  }
 };
 </script>
 
@@ -42,68 +36,54 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow: hidden;
   background-image: url('../public/images/farmaciaBG.jpg');
   background-size: cover;
   background-position: center;
-  border: 1px solid black;
+  height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .hero {
   text-align: center;
-  padding: 40px 20px;
-  background-color: #54ec5b;
-  color: white;
-  border-radius: 10px;
+  padding: 60px 20px;
+  color: #333;
+  border-radius: 15px;
   margin-bottom: 40px;
+  width: 90%;
+  max-width: 800px;
+  background-color: #ffffff;
   border: 1px solid #000000;
-  border-radius: 10px;
-  
-}
-
-.hero-logo {
-  width: 120px;
-  height: auto;
-  margin-bottom: 20px;
 }
 
 .hero-title {
-  font-size: 48px;
+  font-size: 2.5rem;
   margin-bottom: 10px;
+  color: #2b9348;
+  font-weight: bold;
 }
 
 .hero-subtitle {
-  font-size: 24px;
+  font-size: 1.25rem;
   margin-bottom: 20px;
+  color: #555;
 }
 
-.hero-button {
-  background-color: white;
-  color: #54ec5b;
-  padding: 10px 20px;
-  text-decoration: none;
-  font-size: 18px;
-  border-radius: 5px;
-}
-
-.hero-button:hover {
-  background-color: #f5f5f5;
-  color: #54ec5b;
-}
-
-router-link {
-  text-decoration: none;
-  color: inherit;
-}
 .servicios {
-  width: 100%;
+  width: 60%;
+  max-width: 800px;
   text-align: center;
   margin-bottom: 40px;
+  border: 1px solid #000000;
+  border-radius: 15px;
+  padding: 20px;
+  background-color: white;
 }
 
 .section-title {
-  font-size: 36px;
+  font-size: 2rem;
   margin-bottom: 20px;
+  color: #2b9348;
 }
 
 .servicios-grid {
@@ -114,28 +94,83 @@ router-link {
 }
 
 .servicio-card {
-  background-color: #f0f0f0;
+  background-color: #ffffff;
   padding: 20px;
-  border-radius: 10px;
-  border: 1px solid #000000;
-  width: 300px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  border: 1px solid #e0e0e0;
+  width: 280px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
-  transition: background-color 0.3s;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .servicio-card:hover {
-  background-color: #e0e0e0;
-
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .servicio-card h3 {
-  font-size: 24px;
+  font-size: 1.4rem;
   margin-bottom: 10px;
+  color: #2b9348;
 }
 
 .servicio-card p {
-  font-size: 16px;
-  color: #666;
+  font-size: 0.9rem;
+  color: #777;
+}
+
+/* Media queries para adaptar el diseño en pantallas más pequeñas */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .servicio-card {
+    width: 90%;
+  }
+
+  .servicio-card h3 {
+    font-size: 1.2rem;
+  }
+
+  .servicio-card p {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 1.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.85rem;
+  }
+
+  .section-title {
+    font-size: 1.25rem;
+  }
+
+  .servicio-card {
+    padding: 15px;
+    width: 100%;
+  }
+
+  .servicio-card h3 {
+    font-size: 1rem;
+  }
+
+  .servicio-card p {
+    font-size: 0.75rem;
+  }
 }
 </style>

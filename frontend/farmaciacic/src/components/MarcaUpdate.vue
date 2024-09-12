@@ -2,29 +2,29 @@
   <div class="marca-form">
     <h2>Actualizar Marca</h2>
     <form @submit.prevent="updateMarca">
-      <div>
+      <div class="form-group">
         <label for="nombre">Nombre:</label>
         <input type="text" v-model="marca.nombre" maxlength="40" required />
       </div>
-      <div>
+      <div class="form-group">
         <label for="paisOrigen">País de Origen:</label>
         <input type="text" v-model="marca.paisOrigen" disabled class="disabled-field"/>
       </div>
-      <div>
+      <div class="form-group">
         <label for="fechaFundacion">Fecha de Fundación:</label>
-        <input type="date" v-model="marca.fechaFundacion"  disabled class="disabled-field"/>
+        <input type="date" v-model="marca.fechaFundacion" disabled class="disabled-field"/>
       </div>
-      <div>
+      <div class="form-group">
         <label for="sitioWeb">Sitio Web:</label>
         <input type="url" v-model="marca.sitioWeb" />
       </div>
-      <div>
+      <div class="form-group">
         <label for="descripcion">Descripción:</label>
         <input type="text" v-model="marca.descripcion" maxlength="100" required />
       </div>
-      <div>
+      <div class="form-group">
         <label for="imagenMarca">Imagen de la Marca:</label>
-        <input type="text" v-model="marca.imagenMarca" />
+        <input type="file" id="imagenMarca" @change="onFileChange" />
       </div>
       <button type="submit">Guardar Cambios</button>
     </form>
@@ -52,8 +52,6 @@ const router = useRouter();
 const toast = useToast();
 const emit = defineEmits(['marcaActualizada']);
 
-
-// Obtener la marca por ID
 const fetchMarca = async () => {
   const id = route.params.id;
   try {
@@ -64,7 +62,14 @@ const fetchMarca = async () => {
   }
 };
 
-// Actualizar la marca
+function onFileChange(event) {
+  const file = event.target.files[0];
+  if (file) {
+    const fileName = file.name.split('.')[0];
+    marca.value.imagenMarca = `/images/${fileName}.png`;
+  }
+}
+
 const updateMarca = async () => {
   try {
     await axios.put(`/api/farmacia/marcas/update/${marca.value.id}`, marca.value);
@@ -75,45 +80,55 @@ const updateMarca = async () => {
   }
 };
 
-// Cargar la marca al montar el componente
 onMounted(() => {
   fetchMarca();
 });
 </script>
 
 <style scoped>
-/* Estilos personalizados para el formulario */
 .marca-form {
   padding: 20px;
   max-width: 600px;
   margin: auto;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.marca-form div {
-  margin-bottom: 10px;
+.marca-form h2 {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 1rem;
 }
 
 .marca-form label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
+  color: #333;
 }
 
-.marca-form input,
-.marca-form textarea {
+.marca-form input {
   width: 100%;
-  padding: 8px;
+  padding: 0.75rem;
   border: 1px solid #ddd;
   border-radius: 4px;
+  font-size: 1rem;
+  color: #333;
 }
 
 .marca-form button {
   background-color: #007bff;
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 0.75rem 1.25rem;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 1rem;
 }
 
 .marca-form button:hover {

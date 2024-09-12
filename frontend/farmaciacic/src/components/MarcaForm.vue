@@ -2,34 +2,34 @@
   <div class="addForm">
     <form @submit.prevent="submitForm">
       <h2>Agregar Marca</h2>
-      <div>
+      <div class="form-group">
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" v-model="marca.nombre" required />
       </div>
-      <div>
+      <div class="form-group">
         <label for="paisOrigen">País de Origen:</label>
         <input type="text" id="paisOrigen" v-model="marca.paisOrigen" required />
       </div>
-      <div>
+      <div class="form-group">
         <label for="fechaFundacion">Fecha de Fundación:</label>
         <input type="date" id="fechaFundacion" v-model="marca.fechaFundacion" required />
       </div>
-      <div>
+      <div class="form-group">
         <label for="sitioWeb">Sitio Web:</label>
         <input type="url" id="sitioWeb" v-model="marca.sitioWeb" required />
       </div>
-      <div>
+      <div class="form-group">
         <label for="descripcion">Descripción:</label>
         <textarea id="descripcion" v-model="marca.descripcion" required></textarea>
       </div>
-      <div>
+      <div class="form-group">
         <label for="imagenMarca">Seleccionar Imagen:</label>
-        <input type="file" id="imagenMarca" @change="onFileChange">
+        <input type="file" id="imagenMarca" @change="onFileChange" />
       </div>
 
       <div class="button-group">
-        <button type="submit">Guardar Marca</button>
-        <button type="button" @click="goToMarcas">Volver</button>
+        <button type="submit" class="btn-primary">Guardar Marca</button>
+        <button type="button" class="btn-secondary" @click="goToMarcas">Volver</button>
       </div>
     </form>
   </div>
@@ -60,7 +60,7 @@ function onFileChange(event) {
     marca.value.imagenMarca = `/images/${fileName}.png`;
   }
 }
-    
+
 const fetchMarcas = async (id) => {
   try {
     const response = await axios.get(`/api/farmacia/marcas/${id}`);
@@ -80,8 +80,6 @@ const submitForm = async () => {
   }
 };
 
-
-
 const goToMarcas = () => {
   router.push("/marcas");
 };
@@ -92,91 +90,129 @@ onMounted(() => {
     fetchMarcas(id);
   }
 });
-
-
-
-
 </script>
 
 <style scoped>
+
+/* Estilización general */
 .addForm {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 100px);
-  background-color: #f9f9f9;
+  height: 100vh;
+  background: linear-gradient(to bottom right, #e6f7ff, #ffffff);
+  padding: 20px;
 }
 
 form {
-  display: flex;
-  flex-direction: column;
+  width: 100%;
   max-width: 600px;
   padding: 40px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  background-color: #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  gap: 20px;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
 }
 
-form div {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  gap: 10px;
+form:hover {
+  transform: scale(1.02);
+}
+
+h2 {
+  margin-bottom: 20px;
+  font-size: 1.8em;
+  color: #333;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  position: relative;
 }
 
 label {
-  font-weight: bold;
-  color: #333;
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #555;
+  font-size: 0.9em;
+  text-transform: uppercase;
 }
 
 input,
 textarea {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
   font-size: 1em;
-  background-color: #f9f9f9;
-  transition: border-color 0.3s;
+  background-color: #fafafa;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 input:focus,
 textarea:focus {
   border-color: #4caf50;
   outline: none;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+input[type="file"] {
+  display: none;
+}
+
+label[for="imagenMarca"] {
+  cursor: pointer;
+  display: inline-block;
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  text-align: center;
+  font-size: 0.9em;
+}
+
+label[for="imagenMarca"]:hover {
+  background-color: #45a049;
 }
 
 .button-group {
   display: flex;
   justify-content: space-between;
-  width: 100%;
-}
-
-input[type="number"] {
-  text-align: right;
 }
 
 button {
+  padding: 12px 24px;
+  font-size: 1em;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary {
   background-color: #4caf50;
   color: white;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 1em;
-  transition: background-color 0.3s;
 }
 
-button:hover {
+.btn-primary:hover {
   background-color: #45a049;
+  transform: translateY(-2px);
 }
 
-button[type="button"] {
+.btn-secondary {
   background-color: #f44336;
+  color: white;
 }
 
-button[type="button"]:hover {
+.btn-secondary:hover {
   background-color: #e53935;
+  transform: translateY(-2px);
 }
+
+
+
 </style>

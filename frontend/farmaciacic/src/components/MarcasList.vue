@@ -40,7 +40,7 @@
                 </svg></button>
             </div>
           </router-link>
-          <div class="botonMostrarDetalles">
+          <div class="botonUpdate">
             <router-link :to="{ name: 'MarcaUpdate', params: { id: marca.id } }">
               <button class="mostrarDetalles" title="Actualizar Marca"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
                   height="24" color="#000000" fill="none">
@@ -54,7 +54,7 @@
             </router-link>
           </div>
 
-          <div class="botonMostrarDetalles">
+          <div class="botonDelete">
             <button class="mostrarDetalles" title="Eliminar Marca" @click="showModal(marca.id)"><svg xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24" width="24" height="24" color="#000000" fill="none">
                 <path
@@ -220,7 +220,7 @@ onMounted(() => {
 }
 
 .botonMostrarDetalles button {
-  --bg: #e74c3c;
+  --bg: #96fff1;
   --text-color: #fff;
   position: relative;
   width: 40px;
@@ -235,7 +235,7 @@ onMounted(() => {
   border-radius: 5px;
   opacity: 0.8;
   letter-spacing: 1px;
-  box-shadow: #c0392b 0px 7px 2px, #000 0px 8px 5px;
+  box-shadow: #1fbcc7 0px 7px 2px, #000 0px 8px 5px;
 }
 
 .botonMostrarDetalles button:hover {
@@ -247,12 +247,91 @@ onMounted(() => {
   box-shadow: #c0392b 0px 3px 2px, #000 0px 3px 5px;
 }
 
+.botonMostrarDetalles {
+  padding: 20px;
+}
 
-.botonCrear {
+.botonUpdate button {
+  --bg: #f4ff5f;
+  --text-color: #fff;
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: var(--bg);
+  color: var(--text-color);
+  padding: 7px;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: 0.2s;
+  border-radius: 5px;
+  opacity: 0.8;
+  letter-spacing: 1px;
+  box-shadow: #cae91d 0px 7px 2px, #000 0px 8px 5px;
+}
+
+.botonUpdate button:hover {
+  opacity: 1;
+}
+
+.botonUpdate button:active {
+  top: 4px;
+  box-shadow: #c0392b 0px 3px 2px, #000 0px 3px 5px;
+}
+
+
+.botonUpdate {
   display: flex;
   justify-content: end;
   margin-right: 3vw;
   margin-bottom: 1vh;
+  margin: 2.4vh;
+}
+
+
+
+.botonDelete button {
+  --bg: #ff604b;
+  --text-color: #fff;
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: var(--bg);
+  color: var(--text-color);
+  padding: 7px;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: 0.2s;
+  border-radius: 5px;
+  opacity: 0.8;
+  letter-spacing: 1px;
+  box-shadow: #fc2600 0px 7px 2px, #000 0px 8px 5px;
+}
+
+.botonDelete button:hover {
+  opacity: 1;
+}
+
+.botonDelete button:active {
+  top: 4px;
+  box-shadow: #c0392b 0px 3px 2px, #000 0px 3px 5px;
+}
+
+
+.botonDelete {
+  display: flex;
+  justify-content: end;
+  margin-right: 3vw;
+  margin-bottom: 1vh;
+  margin: 2.4vh;
+}
+
+.botonCrear {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1vh;
+  margin-left: auto;
 }
 
 .botonCrear button {
@@ -282,7 +361,6 @@ onMounted(() => {
   top: 4px;
   box-shadow: #4bb82a 0px 3px 2px, #000 0px 3px 5px;
 }
-
 
 .modal-overlay {
   position: fixed;

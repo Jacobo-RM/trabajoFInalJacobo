@@ -1,23 +1,3 @@
-<script>
-import { ref, onMounted } from "vue";
-import axios from "./axios";
-import { RouterLink, RouterView } from "vue-router";
-
-const marca = ref([]);
-
-const fecthFarmacia = async () => {
-  try {
-    const response = await axios.get("/api/farmacia/");
-    marca.value = response.data;
-  } catch (error) {
-    console.error("Error fetching farmacia:", error);
-  }
-};
-
-onMounted(() => {
-  fecthFarmacia();
-});
-</script>
 <template>
   <header class="header">
     <img src="../public/images/farmaciaLogo.png" alt="Logo de la Farmacia" class="logo" />
@@ -29,7 +9,6 @@ onMounted(() => {
       </div>
     </nav>
     <img src="../public/images/farmaciaLogo.png" alt="Logo de la Farmacia" class="logo" />
-
   </header>
 
   <main class="main-content">
@@ -41,62 +20,64 @@ onMounted(() => {
 .header {
   display: flex;
   align-items: center;
-  justify-content: center;
-  background-color: #31c456;
-  border: 1px solid black;
-  border-radius: 5px;
+  justify-content: space-between;
+  background-color: #2b9348;
+  padding: 10px 20px;
   color: #ffffff;
-  height: 30px;
-  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  flex-wrap: wrap;
 }
 
 .logo {
   width: 50px;
   height: auto;
-  margin-right: 20px;
-  margin-left: 20px;
 }
 
 .nav {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   gap: 40px;
+  flex-grow: 1;
 }
 
 .tituloYRutas {
   display: flex;
-  gap: 30px;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
 .ruta {
   color: #ffffff;
-  font-size: 22px;
+  font-size: 1.2rem;
   font-weight: 500;
   text-decoration: none;
-  transition: color 0.3s, background-color 0.3s;
   padding: 8px 15px;
   border-radius: 5px;
+  transition: background-color 0.3s;
 }
 
 .ruta:hover {
-  background-color: #0e7928;
-  color: #ffffff;
-}
-
-.router-link-active {
-  font-weight: bold;
-  text-decoration: underline;
+  background-color: #1a6b2f;
 }
 
 .main-content {
-  position: relative;
-  background-color: #f4f4f9;
-  height: 100vh;
+  background-color: #f8f9fa;
   padding: 20px;
+  min-height: calc(100vh - 70px);
+}
 
+
+
+@media (max-width: 480px) {
+  .logo {
+    display: none;
+  }
+
+  .ruta {
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+  }
 }
 </style>
