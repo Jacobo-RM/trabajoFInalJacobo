@@ -139,4 +139,5 @@ public class FarmaciaControllerMockitoTests {
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.nombre").value("Medicamento 1"));
     }
+    
 }
