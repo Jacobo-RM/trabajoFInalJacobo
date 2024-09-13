@@ -1,6 +1,5 @@
 <template>
   <div class="medicamentos">
-    <!-- Buscador -->
     <div class="search-filter">
       <input type="text" v-model="searchTerm" placeholder="Buscar por nombre..." />
       <select v-model="filterBy" @change="applyFilter">
@@ -11,22 +10,6 @@
         <option value="stockDesc">Stock: Mayor a Menor</option>
       </select>
     </div>
-
-    <!-- Botón para agregar medicamento -->
-    <!-- <router-link :to="{ name: 'MedicamentoForm' }">
-      <div class="botonCrear">
-        <button class="botonCrear">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#000000" fill="none">
-            <circle cx="6.25" cy="6.25" r="4.25" stroke="currentColor" stroke-width="1.5" />
-            <circle cx="17.75" cy="17.75" r="4.25" stroke="currentColor" stroke-width="1.5" />
-            <circle cx="6.25" cy="17.75" r="4.25" stroke="currentColor" stroke-width="1.5" />
-            <path d="M18 2V10M22 6L14 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </button>
-      </div>
-    </router-link> -->
-
-    <!-- Contenedor de tarjetas por marca -->
     <div v-for="(meds, marca) in groupedMedicamentos" :key="marca" class="marca-group">
       <h2 class="marca-title">{{ marca }}</h2>
       <div class="cards-container">
@@ -90,7 +73,6 @@ const formatDate = (dateString) => {
   return new Date(dateString).toLocaleDateString("es-ES", options);
 };
 
-// Agrupar medicamentos por marca
 const groupedMedicamentos = computed(() => {
   return medicamentos.value.reduce((groups, medicamento) => {
     const marca = medicamento.marca ? medicamento.marca.nombre : 'Sin Marca';
@@ -102,16 +84,13 @@ const groupedMedicamentos = computed(() => {
   }, {});
 });
 
-// Filtrar medicamentos por marca
 const filteredMedicamentos = (marca) => {
   let filtered = groupedMedicamentos.value[marca] || [];
 
-  // Filtrar por término de búsqueda
   if (searchTerm.value) {
     filtered = filtered.filter(m => m.nombre.toLowerCase().includes(searchTerm.value.toLowerCase()));
   }
 
-  // Aplicar filtro adicional
   switch (filterBy.value) {
     case 'precioAsc':
       filtered = filtered.sort((a, b) => a.precio - b.precio);
@@ -130,31 +109,25 @@ const filteredMedicamentos = (marca) => {
   return filtered;
 };
 
-// Función para eliminar un medicamento
 const deleteMedicamento = async (id) => {
   try {
     await axios.delete(`/api/farmacia/medicamentos/delete/${id}`);
     medicamentos.value = medicamentos.value.filter((medicamento) => medicamento.id !== id);
     closeModal();
-    // Mostrar un mensaje de éxito, asegúrate de que tienes configurado `toast` o una alternativa
   } catch (error) {
-    // Mostrar un mensaje de error
   }
 };
 
-// Mostrar el modal de confirmación
 const showModal = (id) => {
   medicamentoIdBorrar.value = id;
   modalVisible.value = true;
 };
 
-// Cerrar el modal
 const closeModal = () => {
   modalVisible.value = false;
   medicamentoIdBorrar.value = null;
 };
 
-// Cancelar la eliminación
 const cancelDelete = () => {
   closeModal();
 };

@@ -106,7 +106,6 @@ const fetchMarcas = async () => {
 };
 
 
-// Función para eliminar una marca
 const deleteMarca = async (id) => {
   try {
     await axios.delete(`/api/farmacia/marcas/delete/${id}`);
@@ -118,19 +117,16 @@ const deleteMarca = async (id) => {
   }
 };
 
-// Mostrar el modal de confirmación
 const showModal = (id) => {
   marcaIdBorrar.value = id;
   modalVisible.value = true;
 };
 
-// Cerrar el modal
 const closeModal = () => {
   modalVisible.value = false;
   marcaIdBorrar.value = null;
 };
 
-// Cancelar la eliminación
 const cancelDelete = () => {
   closeModal();
 };

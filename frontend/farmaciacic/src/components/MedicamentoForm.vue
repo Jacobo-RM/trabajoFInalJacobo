@@ -77,8 +77,8 @@ const fetchMarcas = async () => {
     const marcaString = route.query.marca;
     if (marcaString) {
       const marcaObj = JSON.parse(marcaString);
-      selectedMarca.value = marcaObj; // Selecciona la marca adecuada
-      newMedicamento.value.marca = marcaObj; // Asigna el objeto de marca completo
+      selectedMarca.value = marcaObj;
+      newMedicamento.value.marca = marcaObj; 
     }
   } catch (error) {
     console.error("Error fetching marcas:", error);
@@ -184,8 +184,8 @@ onMounted(() => {
 }
 
 .price-container input {
-  width: 100%; /* Hace que el input ocupe todo el ancho disponible */
-  padding-right: 2rem; /* Espacio para el símbolo del euro */
+  width: 100%;
+  padding-right: 2rem; 
 }
 
 .currency-symbol {

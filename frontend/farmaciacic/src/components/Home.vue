@@ -121,7 +121,6 @@ export default {
   color: #777;
 }
 
-/* Media queries para adaptar el diseño en pantallas más pequeñas */
 @media (max-width: 768px) {
   .hero-title {
     font-size: 2rem;

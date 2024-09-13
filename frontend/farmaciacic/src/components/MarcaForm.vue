@@ -94,7 +94,6 @@ onMounted(() => {
 
 <style scoped>
 
-/* Estilización general */
 .addForm {
   display: flex;
   justify-content: center;
