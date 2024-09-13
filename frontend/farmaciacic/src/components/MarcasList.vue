@@ -403,4 +403,28 @@ onMounted(() => {
 .modal-button:hover {
   background-color: #0056b3;
 }
+
+
+@media (max-width: 768px) {
+  .card {
+    padding: 15px;
+    margin: 8px;
+    width: 100%;
+  }
+
+  .button {
+    padding: 8px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 10px;
+    margin: 5px;
+  }
+
+  .button {
+    padding: 6px 12px;
+  }
+}
 </style>
