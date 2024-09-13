@@ -6,16 +6,21 @@
         <input type="text" id="nombre" v-model="newMedicamento.nombre" required />
       </div>
       <div>
-        <label for="precio">Precio:</label>
-        <input type="number" id="precio" v-model="newMedicamento.precio" required />
-      </div>
+  <label for="precio">Precio:</label>
+  <div class="price-container">
+    <input type="number" id="precio" v-model="newMedicamento.precio" min="0" required />
+    <span class="currency-symbol">€</span>
+  </div>
+</div>
+
+
       <div>
         <label for="descripcion">Descripción:</label>
         <input type="text" id="descripcion" v-model="newMedicamento.descripcion" required />
       </div>
       <div>
         <label for="stock">Stock:</label>
-        <input type="number" id="stock" v-model="newMedicamento.stock" required />
+        <input type="number" id="stock" v-model="newMedicamento.stock" min = "0" required />
       </div>
       <div>
         <label for="marca">Marca:</label>
@@ -27,7 +32,7 @@
       </div>
       <div>
         <label for="fechaVencimiento">Fecha de Vencimiento:</label>
-        <input type="date" id="fechaVencimiento" v-model="newMedicamento.fechaVencimiento" required />
+        <input type="date" id="fechaVencimiento" v-model="newMedicamento.fechaVencimiento" min="2024-09-13" required />
       </div>
       <div>
         <label for="necesitaReceta">Necesita Receta: 
@@ -170,7 +175,32 @@ onMounted(() => {
   input[type="number"] {
     text-align: right;
   }
-  
+  .price-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 95%; 
+  margin-left: 1vw;
+}
+
+.price-container input {
+  width: 100%; /* Hace que el input ocupe todo el ancho disponible */
+  padding-right: 2rem; /* Espacio para el símbolo del euro */
+}
+
+.currency-symbol {
+  position: absolute;
+  right: 0;
+  padding: 0 0.5rem;
+  color: #333;
+  background-color: #f9f9f9;
+  border-left: 1px solid #ccc;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+
   .button-group {
     display: flex;
     justify-content: space-between;

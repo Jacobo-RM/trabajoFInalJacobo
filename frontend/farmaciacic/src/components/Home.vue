@@ -32,6 +32,7 @@ export default {
 </script>
 
 <style scoped>
+
 .home-container {
   display: flex;
   flex-direction: column;
@@ -40,7 +41,7 @@ export default {
   background-size: cover;
   background-position: center;
   height: 100vh;
-  padding: 20px;
+  width: auto;
   box-sizing: border-box;
 }
 
